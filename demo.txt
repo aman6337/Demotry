@@ -1,4 +1,4 @@
 Ye question!!
 
-
+create salaried emp as subclass of emp with addition data members as basic(float) allaownaces (dfloat and pf . salatried emp should suppot a constustor that accepts empid, name , basic , allownces and pf in the same sequence
 ye anss
