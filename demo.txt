@@ -1,85 +1,129 @@
-class Calculator {
-	int num1;
-	int num2;
-	static int iCount;
-	int iCountOfOperations;
-	String strName;
+class Time {
+	int hrs,mins,secs;
+    //write constrctor here
 	// Write your code here...
-
-    public Calculator(){
-        num1=1;
-        num2=1;
-        iCount++;
-        iCountOfOperations=0;
-        strName="Calculator"+iCount;
+     public Time(int hrs, int mins, int secs){
+        if(hrs>=0 && hrs <=23)
+        this.hrs=hrs;
+        else
+        hrs=0;
+        if(mins>=0 && mins<=59)
+        this.mins=mins;
+        else
+        mins=0;
+        if(secs>=0 && secs <=59)
+        this.secs=secs;
+        else
+        secs=0;
     }
-
-    public Calculator(int a){
-        num1=a;
-        num2=a;
-        iCount++;
-        iCountOfOperations=0;
-        strName="Calculator"+iCount;
+	
+//write display method
+    // Write your code here...
+    public void display(){
+        String h="";
+        String m="";
+        String s="";
+        if(hrs<10){
+            System.out.println("0"+hrs);
+        }
+        else {
+            System.out.print(hrs);
+        }
+        if(mins<10){
+            System.out.print(":0"+mins);
+        }
+        else{
+            System.out.print(":"+mins);
+        }
+        if(secs<10){
+            System.out.print(":0"+secs);        }
+        }
+         else {
+            System.out.print(":"+secs);
+         }
     }
-
-    public Calculator(int num1, int num2){
-        this.num1=num1;
-        this.num2=num2;
-        iCount++;
-        iCountOfOperations=0;
-        strName="Calculator"+iCount;
-    }
-
-    public int addition(){
-        iCountOfOperations++;
-        return num1+num2;
-    }
-
-    public int subtraction(){
-        iCountOfOperations++;
-        return num1-num2;
-    }
-
-    public int multiplication(){
-        iCountOfOperations++;
-        return num1*num2;
-
-    }
-
-    public int division(){
-        iCountOfOperations++;
-        return num1/num2;
-    }
-	static int getCountOfCalculators(){
-        return iCount++;
-    }
-
-@Override
-	public String toString() {
-		return strName+":"+num1+","+num2+":"+iCountOfOperations;
-	}
+	
 }
 public class Program {
 	public static void main(String[] args) {
-		try {
-			Calculator calc1= new Calculator();
-			System.out.println(calc1.addition());
-			
-			Calculator calc2= new Calculator(28);
-			System.out.println(calc2.multiplication());
-			calc2.subtraction();
-			
-			Calculator calc3= new Calculator(457,92);
-			System.out.println(calc3.subtraction());
-			System.out.println(new Calculator().division());
-			
-			System.out.println("Total number of calculators:"+Calculator.getCountOfCalculators());
-			System.out.println(calc1);
-			System.out.println(calc2);
-			System.out.println(calc3);			
+		try	{
+			if(args.length == 3) {
+				int hrs = Integer.parseInt(args[0]);
+				int mins = Integer.parseInt(args[1]);
+				int secs = Integer.parseInt(args[2]);
+				Time t1 = new Time(hrs, mins, secs);
+				t1.display();
+			}
+			else {
+				System.out.println("Insufficient arguments");
+			}	
 		}
 		catch(Exception e) {
-			System.out.println("Error: "+e.getMessage());
-		}		
+			System.out.println(e.getMessage());
+		}
+	}
+}class Time {
+	int hrs,mins,secs;
+    //write constrctor here
+	// Write your code here...
+     public Time(int hrs, int mins, int secs){
+        if(hrs>=0 && hrs <=23)
+        this.hrs=hrs;
+        else
+        hrs=0;
+        if(mins>=0 && mins<=59)
+        this.mins=mins;
+        else
+        mins=0;
+        if(secs>=0 && secs <=59)
+        this.secs=secs;
+        else
+        secs=0;
+    }
+	
+//write display method
+    // Write your code here...
+    public void display(){
+        String h="";
+        String m="";
+        String s="";
+        if(hrs<10){
+            System.out.println("0"+hrs);
+        }
+        else {
+            System.out.print(hrs);
+        }
+        if(mins<10){
+            System.out.print(":0"+mins);
+        }
+        else{
+            System.out.print(":"+mins);
+        }
+        if(secs<10){
+            System.out.print(":0"+secs);        }
+        }
+         else {
+            System.out.print(":"+secs);
+         }
+    }
+	
+}
+public class Program {
+	public static void main(String[] args) {
+		try	{
+			if(args.length == 3) {
+				int hrs = Integer.parseInt(args[0]);
+				int mins = Integer.parseInt(args[1]);
+				int secs = Integer.parseInt(args[2]);
+				Time t1 = new Time(hrs, mins, secs);
+				t1.display();
+			}
+			else {
+				System.out.println("Insufficient arguments");
+			}	
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
