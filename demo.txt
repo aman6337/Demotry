@@ -35,5 +35,7 @@ class ContractEmp extends Emp {
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 second 
 //
-int static count =101;
+public static int count =101;
+// count increament kardo
+
 
