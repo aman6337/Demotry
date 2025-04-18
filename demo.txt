@@ -33,9 +33,70 @@ class ContractEmp extends Emp {
     }
 }
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-second 
-//
-public static int count =101;
-// count increament kardo
 
+// Custom Checked Exception Class
+class InvalidColorException extends Exception {
+    private int r, g, b;
 
+    public InvalidColorException(int r, int g, int b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+
+    @Override
+    public String getMessage() {
+        return "Invalid Color with RGB: " + r + ", " + g + ", " + b;
+    }
+}
+
+// Color Class
+public class Color {
+    private int r, g, b;
+
+    // Default constructor (white)
+    public Color() {
+        this(255, 255, 255);
+    }
+
+    // Parameterized constructor with validation
+    public Color(int r, int g, int b) throws InvalidColorException {
+        if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+            throw new InvalidColorException(r, g, b);
+        }
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+
+    @Override
+    public String toString() {
+        if (r == 0 && g == 0 && b == 0) return "black";
+        if (r == 255 && g == 255 && b == 255) return "white";
+        if (r == 255 && g == 0 && b == 0) return "red";
+        if (r == 0 && g == 255 && b == 0) return "green";
+        if (r == 0 && g == 0 && b == 255) return "blue";
+        return "RGB shade";
+    }
+
+    // Main method to test
+    public static void main(String[] args) {
+        try {
+            Color white = new Color();
+            System.out.println("White color: " + white);
+
+            Color red = new Color(255, 0, 0);
+            System.out.println("Red color: " + red);
+
+            Color custom = new Color(100, 150, 200);
+            System.out.println("Custom color: " + custom);
+
+            // This will throw InvalidColorException
+            Color invalid = new Color(300, 50, 100);
+            System.out.println("Invalid color: " + invalid); // Won't be reached
+
+        } catch (InvalidColorException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
