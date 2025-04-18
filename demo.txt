@@ -1,45 +1,77 @@
 abstract class User {
-	private int userid;
-	private String name;
-	 // Write your code here...
-	 
-public abstract float getDiscount(float shoppingAmt);
+    private int userid;
+    private String name;
+
+    public User(int userid, String name) {
+        this.userid = userid;
+        this.name = name;
+    }
+
+    // Getters (optional, if needed)
+    public int getUserid() {
+        return userid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public abstract float getDiscount(float shoppingAmt);
 }
-class RegisteredUser extends User{
-    // Write your code here...
-	 
+
+class RegisteredUser extends User {
+    private int registrationNo;
+
+    public RegisteredUser(int userid, String name, int registrationNo) {
+        super(userid, name);
+        this.registrationNo = registrationNo;
+    }
+
+    public int getRegistrationNo() {
+        return registrationNo;
+    }
+
+    @Override
+    public float getDiscount(float shoppingAmt) {
+        float discountPercent = 0.0f;
+        if (shoppingAmt < 1000) {
+            discountPercent = 5.0f;
+        } else if (shoppingAmt < 5000) {
+            discountPercent = 10.0f;
+        } else {
+            discountPercent = 15.0f;
+        }
+        float discountAmt = (discountPercent / 100) * shoppingAmt;
+        return shoppingAmt - discountAmt;
+    }
 }
+
 class PrivilegedUser extends User {
-     // Write your code here...
-	 
-}
-public class Program {
-	public static void main(String[] args) {
-		try	{
-            // data passed to RegisteredUser constructor in the order:  userid,  name, registrationNo
-			User u1 = new RegisteredUser(19870,"Amit", 20200001);
-			User u2 = new RegisteredUser(13450,"Vishal", 20200034);
-            User u3 = new RegisteredUser(13422,"Sagar",2023902);
-            User u4 = new RegisteredUser(16722, "Shiva",202389);
-            User u5 = new RegisteredUser(16728, "Ashish",202398);
-			System.out.printf("Final Amount for Amit after discount : %.2f",u1.getDiscount(700));
-			System.out.printf("\nFinal Amount for Vishal after discount : %.2f",u2.getDiscount(2500));
-            System.out.printf("\nFinal Amount for Sagar after discount : %.2f",u3.getDiscount(5000));
-            System.out.printf("\nFinal Amount for Shiva after discount : %.2f",u4.getDiscount(11500));
-            System.out.printf("\nFinal Amount for Ashish after discount : %.2f",u5.getDiscount(10000));
-            // data passed to PrivilegedUser constructor in the order:  userid, name and cardType
-			User u6 = new PrivilegedUser(14387, "Sadhana", "silver");
-			User u7 = new PrivilegedUser(16857, "Rahul",  "gold");
-			User u8 = new PrivilegedUser(17867, "Meghana", "silver");
-            User u9 = new PrivilegedUser(17843, "Ram", "silver");
-			System.out.printf("\nFinal Amount for Sadhana after discount : %.2f",u6.getDiscount(6700));
-			System.out.printf("\nFinal Amount for Rahul after discount : %.2f",u7.getDiscount(8000));
-			System.out.printf("\nFinal Amount for Meghana after discount :  %.2f",u8.getDiscount(4300));
-            System.out.printf("\nFinal Amount for Ram after discount :  %.2f",u9.getDiscount(5000));
-            System.out.println();
-		}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
+    private String cardType;
+
+    public PrivilegedUser(int userid, String name, String cardType) {
+        super(userid, name);
+        this.cardType = cardType.toLowerCase();
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    @Override
+    public float getDiscount(float shoppingAmt) {
+        float discountPercent = 0.0f;
+        switch(cardType) {
+            case "silver":
+                discountPercent = 12.0f;
+                break;
+            case "gold":
+                discountPercent = 20.0f;
+                break;
+            default:
+                discountPercent = 0.0f; // no discount for unknown card type
+        }
+        float discountAmt = (discountPercent / 100) * shoppingAmt;
+        return shoppingAmt - discountAmt;
+    }
 }
