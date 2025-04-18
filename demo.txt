@@ -1,2 +1,85 @@
-class SalariedEmp extends Emp{
-//write code
+class Calculator {
+	int num1;
+	int num2;
+	static int iCount;
+	int iCountOfOperations;
+	String strName;
+	// Write your code here...
+
+    public Calculator(){
+        num1=1;
+        num2=1;
+        iCount++;
+        iCountOfOperations=0;
+        strName="Calculator"+iCount;
+    }
+
+    public Calculator(int a){
+        num1=a;
+        num2=a;
+        iCount++;
+        iCountOfOperations=0;
+        strName="Calculator"+iCount;
+    }
+
+    public Calculator(int num1, int num2){
+        this.num1=num1;
+        this.num2=num2;
+        iCount++;
+        iCountOfOperations=0;
+        strName="Calculator"+iCount;
+    }
+
+    public int addition(){
+        iCountOfOperations++;
+        return num1+num2;
+    }
+
+    public int subtraction(){
+        iCountOfOperations++;
+        return num1-num2;
+    }
+
+    public int multiplication(){
+        iCountOfOperations++;
+        return num1*num2;
+
+    }
+
+    public int division(){
+        iCountOfOperations++;
+        return num1/num2;
+    }
+	static int getCountOfCalculators(){
+        return iCount++;
+    }
+
+@Override
+	public String toString() {
+		return strName+":"+num1+","+num2+":"+iCountOfOperations;
+	}
+}
+public class Program {
+	public static void main(String[] args) {
+		try {
+			Calculator calc1= new Calculator();
+			System.out.println(calc1.addition());
+			
+			Calculator calc2= new Calculator(28);
+			System.out.println(calc2.multiplication());
+			calc2.subtraction();
+			
+			Calculator calc3= new Calculator(457,92);
+			System.out.println(calc3.subtraction());
+			System.out.println(new Calculator().division());
+			
+			System.out.println("Total number of calculators:"+Calculator.getCountOfCalculators());
+			System.out.println(calc1);
+			System.out.println(calc2);
+			System.out.println(calc3);			
+		}
+		catch(Exception e) {
+			System.out.println("Error: "+e.getMessage());
+		}		
+	}
+}
