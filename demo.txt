@@ -1,126 +1,77 @@
-class Time {
-	int hrs,mins,secs;
-    //write constrctor here
-	// Write your code here...
-     public Time(int hrs, int mins, int secs){
-        if(hrs>=0 && hrs <=23)
-        this.hrs=hrs;
-        else
-        hrs=0;
-        if(mins>=0 && mins<=59)
-        this.mins=mins;
-        else
-        mins=0;
-        if(secs>=0 && secs <=59)
-        this.secs=secs;
-        else
-        secs=0;
-    }
-	
-//write display method
+abstract class User {
+	private int userid;
+	private String name;
+	 // Write your code here...
+     public User(int id, String n){
+         this.userid=id;
+         this.name=n;
+     }
+	 
+public abstract float getDiscount(float shoppingAmt);
+}
+class RegisteredUser extends User{
     // Write your code here...
-    public void display(){
-        String h="";
-        String m="";
-        String s="";
-        if(hrs<10){
-            System.out.println("0"+hrs);
-        }
-        else {
-            System.out.print(hrs);
-        }
-        if(mins<10){
-            System.out.print(":0"+mins);
-        }
-        else{
-            System.out.print(":"+mins);
-        }
-        if(secs<10){
-            System.out.print(":0"+secs);        }
-        }
-         else {
-            System.out.print(":"+secs);
+	 private int registrationNo;
+     public RegisteredUser (int id , String n,int r){
+         super (id,n);
+         this.registrationNo=r;
+     }
+
+     public float getDiscount(float shoppingAmt){
+         if(shoppingAmt<1000){
+             return shoppingAmt;
+         }else if(shoppingAmt>= 1000 && shoppingAmt<5000){
+             return shoppingAmt- shoppingAmt*0.05f;
+         }else if(shoppingAmt >=5000 && shoppingAmt<10000){
+             return shoppingAmt - shoppingAmt*0.07f;
+         }else {
+             return shoppingAmt-shoppingAmt*0.10f;
          }
+     }
+}
+class PrivilegedUser extends User {
+     // Write your code here...
+private String cardType;
+public PrivilegedUser(int id, String n, String c){
+    super(id,n);
+    this.cardType=c;
+}
+public float getDiscount(float shoppingAmt){
+    if (cardType.equals("gold")){
+        return shoppingAmt-shoppingAmt*0.10f;
+
+    }else if (cardType.equals("silver")){
+        return shoppingAmt- shoppingAmt*0.03f;
+    }else if(shoppingAmt>=5000){
+        return shoppingAmt-shoppingAmt*0.05f;
     }
-	
+}
+	 
 }
 public class Program {
 	public static void main(String[] args) {
 		try	{
-			if(args.length == 3) {
-				int hrs = Integer.parseInt(args[0]);
-				int mins = Integer.parseInt(args[1]);
-				int secs = Integer.parseInt(args[2]);
-				Time t1 = new Time(hrs, mins, secs);
-				t1.display();
-			}
-			else {
-				System.out.println("Insufficient arguments");
-			}	
-		}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
-}class Time {
-	int hrs,mins,secs;
-    //write constrctor here
-	// Write your code here...
-     public Time(int hrs, int mins, int secs){
-        if(hrs>=0 && hrs <=23)
-        this.hrs=hrs;
-        else
-        hrs=0;
-        if(mins>=0 && mins<=59)
-        this.mins=mins;
-        else
-        mins=0;
-        if(secs>=0 && secs <=59)
-        this.secs=secs;
-        else
-        secs=0;
-    }
-	
-//write display method
-    // Write your code here...
-    public void display(){
-        String h="";
-        String m="";
-        String s="";
-        if(hrs<10){
-            System.out.println("0"+hrs);
-        }
-        else {
-            System.out.print(hrs);
-        }
-        if(mins<10){
-            System.out.print(":0"+mins);
-        }
-        else{
-            System.out.print(":"+mins);
-        }
-        if(secs<10){
-            System.out.print(":0"+secs);        }
-        }
-         else {
-            System.out.print(":"+secs);
-         }
-    }
-	
-}
-public class Program {
-	public static void main(String[] args) {
-		try	{
-			if(args.length == 3) {
-				int hrs = Integer.parseInt(args[0]);
-				int mins = Integer.parseInt(args[1]);
-				int secs = Integer.parseInt(args[2]);
-				Time t1 = new Time(hrs, mins, secs);
-				t1.display();
-			}
-			else {
-				System.out.println("Insufficient arguments");
-			}	
+            // data passed to RegisteredUser constructor in the order:  userid,  name, registrationNo
+			User u1 = new RegisteredUser(19870,"Amit", 20200001);
+			User u2 = new RegisteredUser(13450,"Vishal", 20200034);
+            User u3 = new RegisteredUser(13422,"Sagar",2023902);
+            User u4 = new RegisteredUser(16722, "Shiva",202389);
+            User u5 = new RegisteredUser(16728, "Ashish",202398);
+			System.out.printf("Final Amount for Amit after discount : %.2f",u1.getDiscount(700));
+			System.out.printf("\nFinal Amount for Vishal after discount : %.2f",u2.getDiscount(2500));
+            System.out.printf("\nFinal Amount for Sagar after discount : %.2f",u3.getDiscount(5000));
+            System.out.printf("\nFinal Amount for Shiva after discount : %.2f",u4.getDiscount(11500));
+            System.out.printf("\nFinal Amount for Ashish after discount : %.2f",u5.getDiscount(10000));
+            // data passed to PrivilegedUser constructor in the order:  userid, name and cardType
+			User u6 = new PrivilegedUser(14387, "Sadhana", "silver");
+			User u7 = new PrivilegedUser(16857, "Rahul",  "gold");
+			User u8 = new PrivilegedUser(17867, "Meghana", "silver");
+            User u9 = new PrivilegedUser(17843, "Ram", "silver");
+			System.out.printf("\nFinal Amount for Sadhana after discount : %.2f",u6.getDiscount(6700));
+			System.out.printf("\nFinal Amount for Rahul after discount : %.2f",u7.getDiscount(8000));
+			System.out.printf("\nFinal Amount for Meghana after discount :  %.2f",u8.getDiscount(4300));
+            System.out.printf("\nFinal Amount for Ram after discount :  %.2f",u9.getDiscount(5000));
+            System.out.println();
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
